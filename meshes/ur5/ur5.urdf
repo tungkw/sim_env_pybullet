@@ -38,18 +38,39 @@
   <!-- In CAD this distance is 0.930, but in the spec it is 0.09465 -->
   <!--property name="wrist_3_length" value="0.0823" /-->
   <!-- manually measured -->
+
+  <!-- ~= Kd * (1+Ks) -->
+  <material name="Rohr">
+    <color rgba="0.75 0.75 0.75 1.0"/>
+  </material>
+  <material name="verbindung">
+    <color rgba="0.3 0.3 0.3 1.0"/>
+  </material>
+  <material name="blau">
+    <color rgba="0.45 0.6 0.75 1.0"/>
+  </material>
+
+  <material name="Rohr">
+    <color rgba="0.524800 0.524800 0.524800 1.0"/>
+  </material>
+  <material name="verbindung">
+    <color rgba="0.178400 0.178400 0.178400 1.0"/>
+  </material>
+  <material name="blau">
+    <color rgba="0.313600 0.434400 0.512000 1.0"/>
+  </material>
+
+
   <link name="base_link">
     <visual>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/visual/base.dae"/>
+        <mesh filename="base.obj"/>
       </geometry>
-      <material name="LightGrey">
-        <color rgba="0.7 0.7 0.7 1.0"/>
-      </material>
+      <material name="Rohr"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/collision/base.stl"/>
+        <mesh filename="base.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -72,21 +93,41 @@
   <link name="shoulder_link">
     <visual>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/visual/shoulder.dae"/>
+        <mesh filename="shoulder.obj"/>
       </geometry>
-      <material name="LightGrey">
-        <color rgba="0.7 0.7 0.7 1.0"/>
-      </material>
+      <material name="verbindung"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/collision/shoulder.stl"/>
+        <mesh filename="shoulder.obj"/>
       </geometry>
     </collision>
     <inertial>
       <mass value="3.7"/>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
       <inertia ixx="0.010267495893" ixy="0.0" ixz="0.0" iyy="0.010267495893" iyz="0.0" izz="0.00666"/>
+    </inertial>
+  </link>
+  <joint name="shoulder_pan_fix_joint" type="fixed">
+    <parent link="shoulder_link"/>
+    <child link="shoulder02_link"/>
+  </joint>
+  <link name="shoulder02_link">
+    <visual>
+      <geometry>
+        <mesh filename="shoulder02.obj"/>
+      </geometry>
+      <material name="blau"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="shoulder02.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
     </inertial>
   </link>
 
@@ -103,15 +144,13 @@
   <link name="upper_arm_link">
     <visual>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/visual/upperarm.dae"/>
+        <mesh filename="upperarm.obj"/>
       </geometry>
-      <material name="LightGrey">
-        <color rgba="0.7 0.7 0.7 1.0"/>
-      </material>
+      <material name="verbindung"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/collision/upperarm.stl"/>
+        <mesh filename="upperarm.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -120,29 +159,115 @@
       <inertia ixx="0.22689067591" ixy="0.0" ixz="0.0" iyy="0.22689067591" iyz="0.0" izz="0.0151074"/>
     </inertial>
   </link>
+  <joint name="shoulder_lift_fix02_joint" type="fixed">
+    <parent link="upper_arm_link"/>
+    <child link="upper_arm02_link"/>
+  </joint>
+  <link name="upper_arm02_link">
+    <visual>
+      <geometry>
+        <mesh filename="upperarm02.obj"/>
+      </geometry>
+      <material name="Rohr"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="upperarm02.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+  <joint name="shoulder_lift_fix03_joint" type="fixed">
+    <parent link="upper_arm_link"/>
+    <child link="upper_arm03_link"/>
+  </joint>
+  <link name="upper_arm03_link">
+    <visual>
+      <geometry>
+        <mesh filename="upperarm03.obj"/>
+      </geometry>
+      <material name="verbindung"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="upperarm03.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+  <joint name="shoulder_lift_fix_01_joint" type="fixed">
+    <parent link="upper_arm_link"/>
+    <child link="upper_arm_01_link"/>
+  </joint>
+  <link name="upper_arm_01_link">
+    <visual>
+      <geometry>
+        <mesh filename="upperarm_01.obj"/>
+      </geometry>
+      <material name="blau"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="upperarm_01.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+  <joint name="shoulder_lift_fix03_01_joint" type="fixed">
+    <parent link="upper_arm_link"/>
+    <child link="upper_arm03_01_link"/>
+  </joint>
+  <link name="upper_arm03_01_link">
+    <visual>
+      <geometry>
+        <mesh filename="upperarm03_01.obj"/>
+      </geometry>
+      <material name="blau"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="upperarm03_01.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
 
 
 
   <joint name="elbow_joint" type="revolute">
     <parent link="upper_arm_link"/>
-    <child link="forearm01_link"/>
+    <child link="forearm_link"/>
     <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.1197 0.425"/>
     <axis xyz="0 1 0"/>
     <limit effort="150.0" lower="-3.14159265359" upper="3.14159265359" velocity="3.15"/>
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
-  <link name="forearm01_link">
+  <link name="forearm_link">
     <visual>
       <geometry>
-        <mesh filename="/home/tungkw/download/universal_robot-melodic-devel/ur_description/meshes/ur5/visual/forearm03.obj"/>
+        <mesh filename="forearm.obj"/>
       </geometry>
-      <material name="LightGrey">
-        <color rgba="0.7 0.7 0.7 1.0"/>
-      </material>
+      <material name="verbindung"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="/home/tungkw/download/universal_robot-melodic-devel/ur_description/meshes/ur5/visual/forearm03.obj"/>
+        <mesh filename="forearm.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -151,11 +276,77 @@
       <inertia ixx="0.0312167910289" ixy="0.0" ixz="0.0" iyy="0.0312167910289" iyz="0.0" izz="0.004095"/>
     </inertial>
   </link>
+  <joint name="elbow_fix02_joint" type="fixed">
+    <parent link="forearm_link"/>
+    <child link="forearm02_link"/>
+  </joint>
+  <link name="forearm02_link">
+    <visual>
+      <geometry>
+        <mesh filename="forearm02.obj"/>
+      </geometry>
+      <material name="Rohr"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="forearm02.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+  <joint name="elbow_fix03_joint" type="fixed">
+    <parent link="forearm_link"/>
+    <child link="forearm03_link"/>
+  </joint>
+  <link name="forearm03_link">
+    <visual>
+      <geometry>
+        <mesh filename="forearm03.obj"/>
+      </geometry>
+      <material name="verbindung"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="forearm03.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+  <joint name="elbow_fix03_01_joint" type="fixed">
+    <parent link="forearm_link"/>
+    <child link="forearm03_01_link"/>
+  </joint>
+  <link name="forearm03_01_link">
+    <visual>
+      <geometry>
+        <mesh filename="forearm03_01.obj"/>
+      </geometry>
+      <material name="blau"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="forearm03_01.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
 
 
 
   <joint name="wrist_1_joint" type="revolute">
-    <parent link="forearm01_link"/>
+    <parent link="forearm_link"/>
     <child link="wrist_1_link"/>
     <origin rpy="0.0 1.57079632679 0.0" xyz="0.0 0.0 0.39225"/>
     <axis xyz="0 1 0"/>
@@ -165,15 +356,13 @@
   <link name="wrist_1_link">
     <visual>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/visual/wrist1.dae"/>
+        <mesh filename="wrist1.obj"/>
       </geometry>
-      <material name="LightGrey">
-        <color rgba="0.7 0.7 0.7 1.0"/>
-      </material>
+      <material name="verbindung"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/collision/wrist1.stl"/>
+        <mesh filename="wrist1.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -182,6 +371,31 @@
       <inertia ixx="0.00255989897604" ixy="0.0" ixz="0.0" iyy="0.00255989897604" iyz="0.0" izz="0.0021942"/>
     </inertial>
   </link>
+  <joint name="wrist_1_fix_joint" type="fixed">
+    <parent link="wrist_1_link"/>
+    <child link="wrist_1_01_link"/>
+  </joint>
+  <link name="wrist_1_01_link">
+    <visual>
+      <geometry>
+        <mesh filename="wrist1_01.obj"/>
+      </geometry>
+      <material name="blau"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="wrist1_01.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+
+
   <joint name="wrist_2_joint" type="revolute">
     <parent link="wrist_1_link"/>
     <child link="wrist_2_link"/>
@@ -193,15 +407,13 @@
   <link name="wrist_2_link">
     <visual>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/visual/wrist2.dae"/>
+        <mesh filename="wrist2.obj"/>
       </geometry>
-      <material name="LightGrey">
-        <color rgba="0.7 0.7 0.7 1.0"/>
-      </material>
+      <material name="verbindung"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/collision/wrist2.stl"/>
+        <mesh filename="wrist2.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -210,6 +422,31 @@
       <inertia ixx="0.00255989897604" ixy="0.0" ixz="0.0" iyy="0.00255989897604" iyz="0.0" izz="0.0021942"/>
     </inertial>
   </link>
+  <joint name="wrist_2_fix_joint" type="fixed">
+    <parent link="wrist_2_link"/>
+    <child link="wrist_2_01_link"/>
+  </joint>
+  <link name="wrist_2_01_link">
+    <visual>
+      <geometry>
+        <mesh filename="wrist2_01.obj"/>
+      </geometry>
+      <material name="blau"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="wrist2_01.obj"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+
+
   <joint name="wrist_3_joint" type="revolute">
     <parent link="wrist_2_link"/>
     <child link="wrist_3_link"/>
@@ -221,15 +458,13 @@
   <link name="wrist_3_link">
     <visual>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/visual/wrist3.dae"/>
+        <mesh filename="wrist3.obj"/>
       </geometry>
-      <material name="LightGrey">
-        <color rgba="0.7 0.7 0.7 1.0"/>
-      </material>
+      <material name="Rohr"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://ur_description/meshes/ur5/collision/wrist3.stl"/>
+        <mesh filename="wrist3.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -238,6 +473,9 @@
       <inertia ixx="8.46958911216e-05" ixy="0.0" ixz="0.0" iyy="8.46958911216e-05" iyz="0.0" izz="0.0001321171875"/>
     </inertial>
   </link>
+
+
+
   <joint name="ee_fixed_joint" type="fixed">
     <parent link="wrist_3_link"/>
     <child link="ee_link"/>
@@ -250,7 +488,15 @@
       </geometry>
       <origin rpy="0 0 0" xyz="-0.01 0 0"/>
     </collision>
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
   </link>
+
+
+
   <transmission name="shoulder_pan_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="shoulder_pan_joint">
@@ -327,7 +573,13 @@
     <selfCollide>true</selfCollide>
   </gazebo>
   <!-- ROS base_link to UR 'Base' Coordinates transform -->
-  <link name="base"/>
+  <link name="base">
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
   <joint name="base_link-base_fixed_joint" type="fixed">
     <!-- NOTE: this rotation is only needed as long as base_link itself is
                  not corrected wrt the real robot (ie: rotated over 180
@@ -338,7 +590,13 @@
     <child link="base"/>
   </joint>
   <!-- Frame coincident with all-zeros TCP on UR controller -->
-  <link name="tool0"/>
+  <link name="tool0">
+    <inertial>
+      <mass value="0.0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
   <joint name="wrist_3_link-tool0_fixed_joint" type="fixed">
     <origin rpy="-1.57079632679 0 0" xyz="0 0.0823 0"/>
     <parent link="wrist_3_link"/>
