@@ -9,9 +9,12 @@ from ur5 import UR5
 
 if __name__ == '__main__':
     client = p.connect(p.GUI)
+    # client = p.connect(p.SHARED_MEMORY)
+    # client = p.connect(p.SHARED_MEMORY_GUI)
     # client = p.connect(p.DIRECT)
     p.setPhysicsEngineParameter(enableFileCaching=False)
     print("numpy enabled", p.isNumpyEnabled())
+    p.configureDebugVisualizer(p.COV_ENABLE_GUI, False)
 
     plane = p.loadURDF(os.path.join(pybullet_data.getDataPath(), "plane.urdf"), [0,0,-0.2])
     plugin = p.loadPlugin(r"C:\Program Files\Python36\Lib\site-packages\examples/SharedMemory/plugins/eglPlugin", "eglRendererPlugin")
@@ -31,7 +34,7 @@ if __name__ == '__main__':
     cnt = 0
     while True:
         p.stepSimulation()
-        # camera.get_image()
+        camera.get_image()
         # img = np.copy(data[2][..., [2,1,0,3]])
         # mask = data[4]==data[4][240,220]
         # cv2.imshow('image', img)

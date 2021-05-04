@@ -33,5 +33,6 @@ class Camera:
             lightAmbientCoeff = -1,
             lightSpecularCoeff = -1,
             lightDiffuseCoeff = -1,
-            # renderer=p.ER_BULLET_HARDWARE_OPENGL
+            renderer=p.ER_BULLET_HARDWARE_OPENGL
+            # renderer=p.ER_TINY_RENDERER
         )
