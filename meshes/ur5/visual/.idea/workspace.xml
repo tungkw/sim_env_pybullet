@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9532b19a-b086-4688-87c5-99a695124ba2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../.idea/ur_description.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/visual.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/visual.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/base.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base.obj" beforeDir="false" afterPath="$PROJECT_DIR$/base.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blau.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blau.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/checker_blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/forearm.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm.obj" beforeDir="false" afterPath="$PROJECT_DIR$/forearm.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm01.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm01.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm01_01.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm01_01.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm02.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/forearm02.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm02.obj" beforeDir="false" afterPath="$PROJECT_DIR$/forearm02.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm03.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/forearm03.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forearm03.obj" beforeDir="false" afterPath="$PROJECT_DIR$/forearm03.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grey.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grey.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rohr.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/verbindung.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/verbindung.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/white.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../urdf/ur5.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../../urdf/ur5.urdf" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1s1OKYgWshJ4c4e45szqdCxSQLC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="visual" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9532b19a-b086-4688-87c5-99a695124ba2" name="Default Changelist" comment="" />
+      <created>1620036565371</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620036565371</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620036595469">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1620036595469" />
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1620108490690">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1620108490690" />
+    <state width="1826" height="225" key="GridCell.Tab.0.bottom" timestamp="1620112820353">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1826" height="225" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1620112820353" />
+    <state width="1826" height="225" key="GridCell.Tab.0.center" timestamp="1620112820353">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1826" height="225" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1620112820353" />
+    <state width="1826" height="225" key="GridCell.Tab.0.left" timestamp="1620112820352">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1826" height="225" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1620112820352" />
+    <state width="1826" height="225" key="GridCell.Tab.0.right" timestamp="1620112820353">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1826" height="225" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1620112820353" />
+    <state x="603" y="166" width="770" height="773" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1620045911886">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="603" y="166" width="770" height="773" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1620045911886" />
+    <state x="763" y="462" width="450" height="180" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1620108530664">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="763" y="462" width="450" height="180" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/67.27.1853.1053@67.27.1853.1053" timestamp="1620108530664" />
+  </component>
+</project>

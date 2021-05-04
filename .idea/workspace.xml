@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d2ea4b16-7ddf-4c52-be99-4ec42513b430" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/.idea/visual.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/base.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/base.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/base.obj" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/base.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/blau.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/blau.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/checker_blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm01.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/forearm01.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm01.obj" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/forearm01.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm01_01.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm01_01.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm02.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/forearm02.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm03.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/forearm03.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/forearm03.obj" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/forearm03.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/grey.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/grey.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/rohr.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/meshes/ur5/visual/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/verbindung.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/verbindung.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/white.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/meshes/ur5/visual/white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/ur5.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/urdf/ur5.urdf" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1s3k7XhF8Joe7DS1wHjxeTLvB8I" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/meshes/ur5/visual" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d2ea4b16-7ddf-4c52-be99-4ec42513b430" name="Default Changelist" comment="" />
+      <created>1620108493291</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620108493291</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1620108524946">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1620108524946" />
+  </component>
+</project>

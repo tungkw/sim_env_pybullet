@@ -39,7 +39,7 @@ if __name__ == '__main__':
     p.setPhysicsEngineParameter(enableFileCaching=False)
 
     plane = p.loadURDF(os.path.join(pybullet_data.getDataPath(), "plane.urdf"), [0,0,-1])
-    ur5 = p.loadURDF("forearm.urdf")
+    ur5 = p.loadURDF("/home/tungkw/download/universal_robot-melodic-devel/ur_description/meshes/ur5.urdf")
 
 
     camera = Camera()

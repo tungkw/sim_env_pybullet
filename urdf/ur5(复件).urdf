@@ -58,9 +58,6 @@
       <inertia ixx="0.00443333156" ixy="0.0" ixz="0.0" iyy="0.00443333156" iyz="0.0" izz="0.0072"/>
     </inertial>
   </link>
-
-
-
   <joint name="shoulder_pan_joint" type="revolute">
     <parent link="base_link"/>
     <child link="shoulder_link"/>
@@ -89,9 +86,6 @@
       <inertia ixx="0.010267495893" ixy="0.0" ixz="0.0" iyy="0.010267495893" iyz="0.0" izz="0.00666"/>
     </inertial>
   </link>
-
-
-
   <joint name="shoulder_lift_joint" type="revolute">
     <parent link="shoulder_link"/>
     <child link="upper_arm_link"/>
@@ -120,21 +114,18 @@
       <inertia ixx="0.22689067591" ixy="0.0" ixz="0.0" iyy="0.22689067591" iyz="0.0" izz="0.0151074"/>
     </inertial>
   </link>
-
-
-
   <joint name="elbow_joint" type="revolute">
     <parent link="upper_arm_link"/>
-    <child link="forearm01_link"/>
+    <child link="forearm_link"/>
     <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.1197 0.425"/>
     <axis xyz="0 1 0"/>
     <limit effort="150.0" lower="-3.14159265359" upper="3.14159265359" velocity="3.15"/>
     <dynamics damping="0.0" friction="0.0"/>
   </joint>
-  <link name="forearm01_link">
+  <link name="forearm_link">
     <visual>
       <geometry>
-        <mesh filename="/home/tungkw/download/universal_robot-melodic-devel/ur_description/meshes/ur5/visual/forearm03.obj"/>
+        <mesh filename="/home/tungkw/download/universal_robot-melodic-devel/ur_description/meshes/ur5/visual/forearm.obj"/>
       </geometry>
       <material name="LightGrey">
         <color rgba="0.7 0.7 0.7 1.0"/>
@@ -142,7 +133,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="/home/tungkw/download/universal_robot-melodic-devel/ur_description/meshes/ur5/visual/forearm03.obj"/>
+        <mesh filename="/home/tungkw/download/universal_robot-melodic-devel/ur_description/urdf/forearm.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -151,11 +142,8 @@
       <inertia ixx="0.0312167910289" ixy="0.0" ixz="0.0" iyy="0.0312167910289" iyz="0.0" izz="0.004095"/>
     </inertial>
   </link>
-
-
-
   <joint name="wrist_1_joint" type="revolute">
-    <parent link="forearm01_link"/>
+    <parent link="forearm_link"/>
     <child link="wrist_1_link"/>
     <origin rpy="0.0 1.57079632679 0.0" xyz="0.0 0.0 0.39225"/>
     <axis xyz="0 1 0"/>
