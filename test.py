@@ -24,15 +24,15 @@ if __name__ == '__main__':
     # p.configureDebugVisualizer(p.COV_ENABLE_RENDERING, True)
     print("numpy enabled", p.isNumpyEnabled())
 
-    # egl = pkgutil.get_loader('eglRenderer')
-    # print(egl.get_filename())
-    # plugin = p.loadPlugin(egl.get_filename(), "_eglRendererPlugin")
-    # print(plugin)
-
-    # renderer = PyrRenderer(multisamples=4) # or PyrRenderer(platform='egl', egl_device=1)
-    renderer = PyrRenderer(platform='egl', device_id=1)
-    plugin = RenderingPlugin(client, renderer)
+    egl = pkgutil.get_loader('eglRenderer')
+    print(egl.get_filename())
+    plugin = p.loadPlugin(egl.get_filename(), "_eglRendererPlugin")
     print(plugin)
+
+    # # renderer = PyrRenderer(multisamples=4) # or PyrRenderer(platform='egl', egl_device=1)
+    # renderer = PyrRenderer(platform='egl', device_id=1)
+    # plugin = RenderingPlugin(client, renderer)
+    # print(plugin)
 
     plane = p.loadURDF(os.path.join(pybullet_data.getDataPath(), "plane.urdf"), [0,0,-0.2])
     camera = Camera()
@@ -44,6 +44,8 @@ if __name__ == '__main__':
     pose = np.eye(4)
     pose[:3, :3] = R.from_euler('xyz', [210, 0, 0], degrees=True).as_matrix()
     pose[:3, 3] = np.array([0,-0.5,1])
+    # pose[:3, :3] = R.from_euler('xyz', [180, 30, 0], degrees=True).as_matrix()
+    # pose[:3, 3] = np.array([0.5,0,1])
     camera.set_pose(pose)
 
     cnt = 0
@@ -52,7 +54,7 @@ if __name__ == '__main__':
         data = camera.get_image()
         img = np.copy(data[2][..., [2,1,0,3]])
         mask = data[4]==data[4][240,220]
-        cv2.imshow('image', img)
-        cv2.waitKey(1)
+        # cv2.imshow('image', img)
+        # cv2.waitKey(1)
         print(cnt)
         cnt+=1

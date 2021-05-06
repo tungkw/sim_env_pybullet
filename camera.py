@@ -2,16 +2,16 @@ import pybullet as p
 
 import numpy as np
 class Camera:
-    def __init__(self):
+    def __init__(self, width=640, height=480, fov=60, near_val=0.01, far_val=10):
         self.pose = np.eye(4)
         self.focus_distance = 1
         self.set_pose(self.pose)
-        self.width = 640
-        self.height = 480
-        self.projection_matrix = p.computeProjectionMatrixFOV(fov=60,
+        self.width = width
+        self.height = height
+        self.projection_matrix = p.computeProjectionMatrixFOV(fov=fov,
                                                          aspect=self.width/self.height,
-                                                         nearVal=0.01,
-                                                         farVal=10)
+                                                         nearVal=near_val,
+                                                         farVal=far_val)
 
 
     def set_pose(self, pose):
