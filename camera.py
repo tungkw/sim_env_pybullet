@@ -6,8 +6,8 @@ class Camera:
         self.pose = np.eye(4)
         self.focus_distance = 1
         self.set_pose(self.pose)
-        self.width = 1280
-        self.height = 960
+        self.width = 640
+        self.height = 480
         self.projection_matrix = p.computeProjectionMatrixFOV(fov=60,
                                                          aspect=self.width/self.height,
                                                          nearVal=0.01,
@@ -27,12 +27,12 @@ class Camera:
             width=self.width, height=self.height,
             viewMatrix=self.view_matrix,
             projectionMatrix=self.projection_matrix,
-            shadow=True,
-            lightDirection=[1,1,1],
-            lightDistance=-1,
-            lightAmbientCoeff = -1,
-            lightSpecularCoeff = -1,
-            lightDiffuseCoeff = -1,
+            # shadow=False,
+            # lightDirection=[1,1,1],
+            # lightDistance=-1,
+            # lightAmbientCoeff = -1,
+            # lightSpecularCoeff = -1,
+            # lightDiffuseCoeff = -1,
             renderer=p.ER_BULLET_HARDWARE_OPENGL
             # renderer=p.ER_TINY_RENDERER
         )
