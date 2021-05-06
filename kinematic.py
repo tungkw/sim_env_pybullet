@@ -11,22 +11,30 @@ class Kinematic():
         self.origin_pose = origin_pose
 
         self.w = [
-            # [0,0,1],
-            # [0,1,0],
-            # [0,1,0],
-            # [0,1,0],
-            # [0,0,1],
-            # [0,1,0],
+            [0,0,1],
+            [0,1,0],
+            [0,1,0],
+            [0,1,0],
+            [0,0,1],
+            [0,1,0],
         ]
         self.p = []
         for i in range(len(self.arm.joint_idxes)):
             idx = self.arm.joint_idxes[i]
-            _, _, _, _, _, _, _, _, _, _, _, _, _, axis, _, _, _ = p.getJointInfo(self.arm.arm, idx)
-            _, _, _, _, pos_p, ori_p = p.getLinkState(self.arm.arm, idx)  # joint and child link in same frame
-            r_l2w = np.array(p.getMatrixFromQuaternion(ori_p)).reshape(3, 3)
-            self.w.append(np.array(axis) @ r_l2w.T)
-            # self.w[i] = np.array(self.w[i])
-            self.p.append(np.array(pos_p))
+            _, name, _, _, _, _, _, _, _, _, _, _, child_name, axis, _, _, _ = p.getJointInfo(self.arm.arm, idx)
+            _, _, _, _, pos, ori = p.getLinkState(self.arm.arm, idx)  # joint and child link in same frame
+            print(name, child_name, pos)
+            print(R.from_quat(ori).as_matrix(), axis)
+            r_l2w = np.array(p.getMatrixFromQuaternion(ori)).reshape(3, 3)
+            print(np.array(axis) @ r_l2w.T)
+            # self.w.append(np.array(axis) @ r_l2w.T)
+            self.w[i] = np.array(self.w[i])
+            self.p.append(np.array(pos))
+
+        idx, name, _, _, _, _, _, _, _, _, _, _, child_name, axis, _, _, _ = p.getJointInfo(self.arm.arm, self.arm.tool0)
+        _, _, _, _, pos, ori = p.getLinkState(self.arm.arm, idx)  # joint and child link in same frame
+        print(name, child_name, pos)
+        print(R.from_quat(ori).as_matrix(), axis)
 
     def fk(self, joints_positions):
         diff = np.array(joints_positions) - self.origin_positions
@@ -59,7 +67,7 @@ class Kinematic():
             mat = np.matmul(mat, T)
         return J
 
-    def ik_DLS(self, T_target, lambd=1, max_iter=50, threshold=1e-4, init_joints_positions=None):
+    def ik_DLS(self, T_target, lambd=1, max_iter=200, threshold=1e-4, init_joints_positions=None):
         # random start joints positions
         degree = len(self.arm.joint_idxes)
         if init_joints_positions is not None:
@@ -90,6 +98,7 @@ class Kinematic():
             e_V = np.matmul(T_target, np.linalg.inv(T_cur))
             n = np.linalg.norm(e_V - np.eye(4))
             cnt += 1
+        print("ik iteration", cnt)
         return self.clip_joint(current_joints_positions)
 
 
@@ -125,6 +134,7 @@ class Kinematic():
             e_V = np.matmul(T_target, np.linalg.inv(T_cur))
             n = np.linalg.norm(e_V - np.eye(4))
             cnt+=1
+        print("ik iteration", cnt)
         return self.clip_joint(current_joints_positions)
 
     def clip_joint(self, joint_positions):

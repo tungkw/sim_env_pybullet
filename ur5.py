@@ -2,6 +2,7 @@ import pybullet as p
 import numpy as np
 from kinematic import Kinematic
 from scipy.linalg import logm, expm
+from scipy.spatial.transform import Rotation as R
 
 
 class UR5:
@@ -20,16 +21,21 @@ class UR5:
         self.tool0 = 0
         for i in range(p.getNumJoints(self.arm)):
             idx, name, jtype, q_idx, v_idx, _, damping, friction, ll, ul, fmax, vmax, child_name, axis, pos, ori, parent_idx = p.getJointInfo(self.arm, i)
+            # if parent_idx >= 0:
+            #     print(name, child_name)
+            #     print(p.getLinkState(self.arm, idx)[-2:])
             if str(name, encoding='utf-8') in self.joint_names:
                 self.joint_idxes.append(idx)
             if str(child_name, encoding='utf-8') == 'tool0':
                 self.tool0 = idx
 
+        self.init_joint_positions = np.array([0,-np.pi/2,0,-np.pi/2,0,0])
+        self.set_joint_target_positions(self.init_joint_positions, wait=True)
         origin_pose = self.get_pose()
         T_origin = np.eye(4)
         T_origin[:3, 3] = origin_pose[:3]
         T_origin[:3, :3] = R.from_quat(origin_pose[3:]).as_matrix()
-        self.kinematic = Kinematic(self, T_origin, np.array([0,0,0,0,0,0]))
+        self.kinematic = Kinematic(self, T_origin, self.init_joint_positions)
 
     def get_joint_positions(self):
         positions = []
@@ -45,8 +51,11 @@ class UR5:
             targetPositions=positions
         )
         if wait:
-            while np.linalg.norm(self.get_joint_positions() - positions) > 1e-6:
+            diff = float('inf')
+            diff_ = np.linalg.norm(self.get_joint_positions() - positions)
+            while diff - diff_ > 0:
                 p.stepSimulation()
+                diff, diff_ = diff_, np.linalg.norm(self.get_joint_positions() - positions)
 
     def set_pose_(self, pose, wait=False):
         joint_target_positions = p.calculateInverseKinematics(
@@ -77,13 +86,17 @@ if __name__ == '__main__':
     arm = UR5()
     print()
 
-    init_position = np.array([0,-np.pi/2,np.pi/2,-np.pi/2,0,0])
-    arm.set_joint_target_positions(init_position, wait=True)
+
+    # # init_position = np.array([0,-np.pi/2,np.pi/2,-np.pi/2,-np.pi/2,0])
+    # init_position = np.array([0,-np.pi/10,np.pi/10,0,0,0])
+    # # init_position = np.array([0,0,0,0,0,0])
+    # arm.set_joint_target_positions(init_position, wait=True)
     test_pose = arm.get_pose()
     print(test_pose)
-    print(arm.kinematic.fk(init_position))
+    print(arm.kinematic.fk(arm.init_joint_positions))
 
-    test_pose[:3] = [0.5, 0, 0.5]
+    # test_pose[:3] = [0., 0.5, 0.5]
+    test_pose[:3] = [0.5, 0., 0.5]
     test_pose[3:] = R.from_euler("xyz", [180,0,-90], degrees=True).as_quat()
     print(test_pose)
     arm.set_joint_target_positions(np.array([0,0,0,0,0,0]), wait=True)
@@ -98,7 +111,7 @@ if __name__ == '__main__':
     camera = Camera()
     pose = np.eye(4)
     pose[:3, :3] = R.from_euler('xyz', [210, 0, 0], degrees=True).as_matrix()
-    pose[:3, 3] = np.array([0.1,-0.5,1])
+    pose[:3, 3] = np.array([0.1,-0.5,1.5])
     camera.set_pose(pose)
     cv2.imshow("image", camera.get_image()[2])
     cv2.waitKey()

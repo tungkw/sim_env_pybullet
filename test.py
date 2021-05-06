@@ -3,32 +3,34 @@ import pkgutil
 import cv2
 import pybullet as p
 import pybullet_data
-from pybullet_rendering import RenderingPlugin
-from pybullet_rendering.render.pyrender import PyrRenderer # pyrender-based renderer
+# from pybullet_rendering import RenderingPlugin
+# from pybullet_rendering.render.pyrender import PyrRenderer # pyrender-based renderer
 from scipy.spatial.transform import Rotation as R
 import numpy as np
 from camera import Camera
 from ur5 import UR5
 import os
 # os.environ['PYOPENGL_PLATFORM'] = 'egl'
-os.environ['MESA_GL_VERSION_OVERRIDE'] = '3.3'
-# os.environ['MESA_GLSL_VERSION_OVERRIDE'] = '150'
+# os.environ['MESA_GL_VERSION_OVERRIDE'] = '3.3'
+# os.environ['MESA_GLSL_VERSION_OVERRIDE'] = '330'
 # os.environ['LIBGL_ALWAYS_SOFTWARE'] = '1'
 
 if __name__ == '__main__':
-    # client = p.connect(p.GUI)
+    client = p.connect(p.GUI)
     # client = p.connect(p.SHARED_MEMORY)
     # client = p.connect(p.SHARED_MEMORY_GUI)
-    client = p.connect(p.DIRECT)
+    # client = p.connect(p.DIRECT)
     p.setPhysicsEngineParameter(enableFileCaching=False)
     # p.configureDebugVisualizer(p.COV_ENABLE_GUI, True)
     # p.configureDebugVisualizer(p.COV_ENABLE_RENDERING, True)
     print("numpy enabled", p.isNumpyEnabled())
 
     egl = pkgutil.get_loader('eglRenderer')
-    print(egl.get_filename())
-    plugin = p.loadPlugin(egl.get_filename(), "_eglRendererPlugin")
-    print(plugin)
+    if egl:
+        print(egl.get_filename())
+        plugin = p.loadPlugin(egl.get_filename(), "_eglRendererPlugin")
+        print(plugin)
+
 
     # # renderer = PyrRenderer(multisamples=4) # or PyrRenderer(platform='egl', egl_device=1)
     # renderer = PyrRenderer(platform='egl', device_id=1)
