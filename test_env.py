@@ -1,7 +1,7 @@
 from UR5CamGymEnv import Ur5CamGymEnv
 
 if __name__ == '__main__':
-    env = Ur5CamGymEnv(renders=True)
+    env = Ur5CamGymEnv(renders=False)
 
     motorsIds = []
     # motorsIds.append(environment._p.addUserDebugParameter("posX",0.4,0.75,0.537))
@@ -19,9 +19,10 @@ if __name__ == '__main__':
 
     state = env.reset()
     while True:
-        action = []
-        for motorId in motorsIds:
-            action.append(env._p.readUserDebugParameter(motorId))
-        o, r, done, _ = env.step(action)
-        if done:
-            break
+        # action = []
+        # for motorId in motorsIds:
+        #     action.append(env._p.readUserDebugParameter(motorId))
+        action = [0,0,0,0]
+        # o, r, done, _ = env.step(action)
+        # if done:
+        #     break

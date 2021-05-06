@@ -11,8 +11,9 @@ from camera import Camera
 from ur5 import UR5
 import os
 # os.environ['PYOPENGL_PLATFORM'] = 'egl'
-# os.environ['MESA_GL_VERSION_OVERRIDE'] = '3.3'
-# os.environ['MESA_GLSL_VERSION_OVERRIDE'] = '330'
+os.environ['MESA_GL_VERSION_OVERRIDE'] = '3.3'
+# os.environ['MESA_GLSL_VERSION_OVERRIDE'] = '150'
+# os.environ['LIBGL_ALWAYS_SOFTWARE'] = '1'
 
 if __name__ == '__main__':
     # client = p.connect(p.GUI)
@@ -54,7 +55,7 @@ if __name__ == '__main__':
         data = camera.get_image()
         img = np.copy(data[2][..., [2,1,0,3]])
         mask = data[4]==data[4][240,220]
-        # cv2.imshow('image', img)
-        # cv2.waitKey(1)
+        cv2.imshow('image', img)
+        cv2.waitKey(1)
         print(cnt)
         cnt+=1
