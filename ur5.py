@@ -30,12 +30,13 @@ class UR5:
                 self.tool0 = idx
 
         self.init_joint_positions = np.array([0,-np.pi/2,0,-np.pi/2,0,0])
+        # self.init_joint_positions = np.array([0,-np.pi/2,np.pi/2,-np.pi/2,-np.pi/2,0])
         self.set_joint_target_positions(self.init_joint_positions, wait=True)
-        origin_pose = self.get_pose()
-        T_origin = np.eye(4)
-        T_origin[:3, 3] = origin_pose[:3]
-        T_origin[:3, :3] = R.from_quat(origin_pose[3:]).as_matrix()
-        self.kinematic = Kinematic(self, T_origin, self.init_joint_positions)
+        # origin_pose = self.get_pose()
+        # T_origin = np.eye(4)
+        # T_origin[:3, 3] = origin_pose[:3]
+        # T_origin[:3, :3] = R.from_quat(origin_pose[3:]).as_matrix()
+        # self.kinematic = Kinematic(self, T_origin, self.init_joint_positions)
 
     def get_joint_positions(self):
         positions = []
@@ -57,22 +58,23 @@ class UR5:
                 p.stepSimulation()
                 diff, diff_ = diff_, np.linalg.norm(self.get_joint_positions() - positions)
 
-    def set_pose_(self, pose, wait=False):
+    def set_pose(self, pose, wait=False):
         joint_target_positions = p.calculateInverseKinematics(
             self.arm,
             self.tool0,
             pose[:3],
-            pose[3:]
+            pose[3:],
+            maxNumIterations=100
         )
         self.set_joint_target_positions(joint_target_positions, wait=wait)
 
-    def set_pose(self, pose, wait=False):
-        T = np.eye(4)
-        T[:3, 3] = pose[:3]
-        T[:3, :3] = R.from_quat(pose[3:]).as_matrix()
-        joint_target_positions = self.kinematic.ik_DLS(T)
-        # joint_target_positions = self.kinematic.ik_pinv(T)
-        self.set_joint_target_positions(joint_target_positions, wait=wait)
+    # def set_pose(self, pose, wait=False):
+    #     T = np.eye(4)
+    #     T[:3, 3] = pose[:3]
+    #     T[:3, :3] = R.from_quat(pose[3:]).as_matrix()
+    #     joint_target_positions = self.kinematic.ik_DLS(T)
+    #     # joint_target_positions = self.kinematic.ik_pinv(T)
+    #     self.set_joint_target_positions(joint_target_positions, wait=wait)
 
     def get_pose(self):
         _, _, _, _, pos, ori = p.getLinkState(self.arm, self.tool0)#, computeForwardKinematics=True)
@@ -80,6 +82,7 @@ class UR5:
 
 if __name__ == '__main__':
     from scipy.spatial.transform import Rotation as R
+    import time
     # p.connect(p.GUI)
     p.connect(p.DIRECT)
 
@@ -93,17 +96,16 @@ if __name__ == '__main__':
     # arm.set_joint_target_positions(init_position, wait=True)
     test_pose = arm.get_pose()
     print(test_pose)
-    print(arm.kinematic.fk(arm.init_joint_positions))
+    # print(arm.kinematic.fk(arm.init_joint_positions))
 
     # test_pose[:3] = [0., 0.5, 0.5]
     test_pose[:3] = [0.5, 0., 0.5]
     test_pose[3:] = R.from_euler("xyz", [180,0,-90], degrees=True).as_quat()
     print(test_pose)
-    arm.set_joint_target_positions(np.array([0,0,0,0,0,0]), wait=True)
+    # arm.set_joint_target_positions(np.array([0,0,0,0,0,0]), wait=True)
+    ts = time.time()
     arm.set_pose(test_pose, wait=True)
-    print(arm.get_pose())
-    arm.set_joint_target_positions(np.array([0,0,0,0,0,0]), wait=True)
-    arm.set_pose_(test_pose, wait=True)
+    print(time.time() - ts)
     print(arm.get_pose())
 
     from camera import Camera

@@ -10,31 +10,17 @@ class Kinematic():
         self.origin_positions = origin_positions
         self.origin_pose = origin_pose
 
-        self.w = [
-            [0,0,1],
-            [0,1,0],
-            [0,1,0],
-            [0,1,0],
-            [0,0,1],
-            [0,1,0],
-        ]
+        self.w = []
         self.p = []
         for i in range(len(self.arm.joint_idxes)):
             idx = self.arm.joint_idxes[i]
             _, name, _, _, _, _, _, _, _, _, _, _, child_name, axis, _, _, _ = p.getJointInfo(self.arm.arm, idx)
-            _, _, _, _, pos, ori = p.getLinkState(self.arm.arm, idx)  # joint and child link in same frame
-            print(name, child_name, pos)
-            print(R.from_quat(ori).as_matrix(), axis)
+            _, ori, _, _, pos, _ = p.getLinkState(self.arm.arm, idx)  # joint and child link in same frame
             r_l2w = np.array(p.getMatrixFromQuaternion(ori)).reshape(3, 3)
-            print(np.array(axis) @ r_l2w.T)
-            # self.w.append(np.array(axis) @ r_l2w.T)
-            self.w[i] = np.array(self.w[i])
+            self.w.append(np.array(axis) @ r_l2w.T)
             self.p.append(np.array(pos))
+            print(self.w[-1])
 
-        idx, name, _, _, _, _, _, _, _, _, _, _, child_name, axis, _, _, _ = p.getJointInfo(self.arm.arm, self.arm.tool0)
-        _, _, _, _, pos, ori = p.getLinkState(self.arm.arm, idx)  # joint and child link in same frame
-        print(name, child_name, pos)
-        print(R.from_quat(ori).as_matrix(), axis)
 
     def fk(self, joints_positions):
         diff = np.array(joints_positions) - self.origin_positions
@@ -67,7 +53,7 @@ class Kinematic():
             mat = np.matmul(mat, T)
         return J
 
-    def ik_DLS(self, T_target, lambd=1, max_iter=200, threshold=1e-4, init_joints_positions=None):
+    def ik_DLS(self, T_target, lambd=1, max_iter=100, threshold=1e-4, init_joints_positions=None):
         # random start joints positions
         degree = len(self.arm.joint_idxes)
         if init_joints_positions is not None:
