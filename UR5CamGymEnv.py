@@ -11,6 +11,7 @@ import time
 import random
 import os
 from pkg_resources import parse_version
+from scipy.spatial.transform import Rotation as R
 
 from ur5 import UR5 as Arm
 from camera import Camera
@@ -123,30 +124,33 @@ class Ur5CamGymEnv(gym.Env):
 
     def step(self, action):
         if (self._isDiscrete):
-          dv = 0.01
-          dx = [0, -dv, dv, 0, 0, 0, 0][action]
-          dy = [0, 0, 0, -dv, dv, 0, 0][action]
-          da = [0, 0, 0, 0, 0, -0.1, 0.1][action]
-          f = 0.3
-          realAction = [dx, dy, -0.002, da, f]
+            dv = 0.01
+            dx = [0, -dv, dv, 0, 0, 0, 0][action]
+            dy = [0, 0, 0, -dv, dv, 0, 0][action]
+            da = [0, 0, 0, 0, 0, -0.1, 0.1][action]
+            realAction = [dx, dy, -0.002, da]
         else:
-          dv = 0.01
-          dx = action[0] * dv
-          dy = action[1] * dv
-          da = action[2] * 0.1
-          f = 0.3
-          realAction = [dx, dy, -0.002, da, f]
+            dv = 0.01
+            dx = action[0] * dv
+            dy = action[1] * dv
+            da = action[2] * 0.1
+            realAction = [dx, dy, -0.002, 0, 0, da]
 
         return self.step2(realAction)
 
     def step2(self, action):
         for i in range(self._actionRepeat):
-          self._kuka.applyAction(action)
-          p.stepSimulation()
-          if self._termination():
-            break
-          #self._observation = self.getExtendedObservation()
-          self._envStepCounter += 1
+            cur_pose = self.arm.get_pose()
+            cur_pose[0] += action[0]
+            cur_pose[1] += action[1]
+            cur_pose[2] += action[2]
+            cur_pose[3:] = (R.from_euler('xyz', action[3:], degrees=False) * R.from_quat(cur_pose[3:])).as_quat()
+            self.arm.set_pose(cur_pose)
+            p.stepSimulation()
+            if self._termination():
+                break
+            #self._observation = self.getExtendedObservation()
+            self._envStepCounter += 1
 
         self._observation = self.getExtendedObservation()
         if self._renders:
@@ -161,55 +165,55 @@ class Ur5CamGymEnv(gym.Env):
         return self.getExtendedObservation()
 
     def _termination(self):
-        #print (self._kuka.endEffectorPos[2])
-        state = p.getLinkState(self._kuka.kukaUid, self._kuka.kukaEndEffectorIndex)
-        actualEndEffectorPos = state[0]
-
-        #print("self._envStepCounter")
-        #print(self._envStepCounter)
-        if (self.terminated or self._envStepCounter > maxSteps):
-          self._observation = self.getExtendedObservation()
-          return True
-        maxDist = 0.005
-        closestPoints = p.getClosestPoints(self._kuka.trayUid, self._kuka.kukaUid, maxDist)
-
-        if (len(closestPoints)):  #(actualEndEffectorPos[2] <= -0.43):
-          self.terminated = 1
-
-          #print("closing gripper, attempting grasp")
-          #start grasp and terminate
-          fingerAngle = 0.3
-          for i in range(100):
-            graspAction = [0, 0, 0.0001, 0, fingerAngle]
-            self._kuka.applyAction(graspAction)
-            p.stepSimulation()
-            fingerAngle = fingerAngle - (0.3 / 100.)
-            if (fingerAngle < 0):
-              fingerAngle = 0
-
-          for i in range(1000):
-            graspAction = [0, 0, 0.001, 0, fingerAngle]
-            self._kuka.applyAction(graspAction)
-            p.stepSimulation()
-            blockPos, blockOrn = p.getBasePositionAndOrientation(self.blockUid)
-            if (blockPos[2] > 0.23):
-              #print("BLOCKPOS!")
-              #print(blockPos[2])
-              break
-            state = p.getLinkState(self._kuka.kukaUid, self._kuka.kukaEndEffectorIndex)
-            actualEndEffectorPos = state[0]
-            if (actualEndEffectorPos[2] > 0.5):
-              break
-
-          self._observation = self.getExtendedObservation()
-          return True
+        # #print (self._kuka.endEffectorPos[2])
+        # state = p.getLinkState(self._kuka.kukaUid, self._kuka.kukaEndEffectorIndex)
+        # actualEndEffectorPos = state[0]
+        #
+        # #print("self._envStepCounter")
+        # #print(self._envStepCounter)
+        # if (self.terminated or self._envStepCounter > maxSteps):
+        #   self._observation = self.getExtendedObservation()
+        #   return True
+        # maxDist = 0.005
+        # closestPoints = p.getClosestPoints(self._kuka.trayUid, self._kuka.kukaUid, maxDist)
+        #
+        # if (len(closestPoints)):  #(actualEndEffectorPos[2] <= -0.43):
+        #   self.terminated = 1
+        #
+        #   #print("closing gripper, attempting grasp")
+        #   #start grasp and terminate
+        #   fingerAngle = 0.3
+        #   for i in range(100):
+        #     graspAction = [0, 0, 0.0001, 0, fingerAngle]
+        #     self._kuka.applyAction(graspAction)
+        #     p.stepSimulation()
+        #     fingerAngle = fingerAngle - (0.3 / 100.)
+        #     if (fingerAngle < 0):
+        #       fingerAngle = 0
+        #
+        #   for i in range(1000):
+        #     graspAction = [0, 0, 0.001, 0, fingerAngle]
+        #     self._kuka.applyAction(graspAction)
+        #     p.stepSimulation()
+        #     blockPos, blockOrn = p.getBasePositionAndOrientation(self.blockUid)
+        #     if (blockPos[2] > 0.23):
+        #       #print("BLOCKPOS!")
+        #       #print(blockPos[2])
+        #       break
+        #     state = p.getLinkState(self._kuka.kukaUid, self._kuka.kukaEndEffectorIndex)
+        #     actualEndEffectorPos = state[0]
+        #     if (actualEndEffectorPos[2] > 0.5):
+        #       break
+        #
+        #   self._observation = self.getExtendedObservation()
+        #   return True
         return False
 
     def _reward(self):
         #rewards is height of target object
         blockPos, blockOrn = p.getBasePositionAndOrientation(self.blockUid)
-        closestPoints = p.getClosestPoints(self.blockUid, self._kuka.kukaUid, 1000, -1,
-                                           self._kuka.kukaEndEffectorIndex)
+        closestPoints = p.getClosestPoints(self.blockUid, self.arm.arm, 1000, -1,
+                                           self.arm.tool0)
 
         reward = -1000
         numPt = len(closestPoints)
