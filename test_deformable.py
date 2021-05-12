@@ -15,7 +15,10 @@ planeId = p.loadURDF("plane.urdf", [0, 0, -2])
 
 boxId = p.loadURDF("cube.urdf", [0, 3, 2], useMaximalCoordinates=True)
 
-bunnyId = p.loadSoftBody("torus/torus_textured.obj", simFileName="torus.vtk", mass=3, useNeoHookean=1, NeoHookeanMu=180,
+# bunnyId = p.loadSoftBody("torus/torus_textured.obj", simFileName="torus.vtk", mass=3, useNeoHookean=1, NeoHookeanMu=180,
+#                          NeoHookeanLambda=600, NeoHookeanDamping=0.01, collisionMargin=0.0006, useSelfCollision=1,
+#                          frictionCoeff=0.5, repulsionStiffness=800)
+bunnyId = p.loadSoftBody("cup.obj", simFileName="cup.vtk", mass=3, useNeoHookean=1, NeoHookeanMu=180,
                          NeoHookeanLambda=600, NeoHookeanDamping=0.01, collisionMargin=0.0006, useSelfCollision=1,
                          frictionCoeff=0.5, repulsionStiffness=800)
 p.changeVisualShape(bunnyId, -1, rgbaColor=[1, 1, 1, 1], textureUniqueId=tex, flags=0)
