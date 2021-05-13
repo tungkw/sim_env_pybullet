@@ -36,7 +36,7 @@ class UR5Suction(UR5):
 
             useNeoHookean=1,
             NeoHookeanMu=1e4,
-            NeoHookeanLambda=1e-1,
+            NeoHookeanLambda=1e2,
             NeoHookeanDamping=1e-2,
         )
         p.changeVisualShape(self.cup, -1, rgbaColor=[.5, .5, .5, 1])
@@ -99,7 +99,8 @@ if __name__ == '__main__':
     motorsIds.append(p.addUserDebugParameter("grasp", 0, 1, 0))
 
     p.loadURDF("plane.urdf")  # , [0,0,-2])
-    box = p.loadURDF("cube.urdf", [0.5, 0, 0], globalScaling=0.1)
+    box = p.loadURDF("cube.urdf", [0.5, -0.055, 0], globalScaling=0.1)
+    box2 = p.loadURDF("cube.urdf", [0.5, 0.055, 0], globalScaling=0.1)
 
     arm = UR5Suction()
 
