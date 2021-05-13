@@ -6,8 +6,8 @@ from scipy.spatial.transform import Rotation as R
 
 
 class UR5:
-    def __init__(self):
-        self.arm = p.loadURDF("./meshes/ur5/ur5.urdf")
+    def __init__(self, urdf_file="./meshes/ur5/ur5.urdf"):
+        self.arm = p.loadURDF(urdf_file)
         self.joint_names = ["shoulder_pan_joint",
                             "shoulder_lift_joint",
                             "elbow_joint",
@@ -29,8 +29,8 @@ class UR5:
             if str(child_name, encoding='utf-8') == 'tool0':
                 self.tool0 = idx
 
-        self.init_joint_positions = np.array([0,-np.pi/2,0,-np.pi/2,0,0])
-        # self.init_joint_positions = np.array([0,-np.pi/2,np.pi/2,-np.pi/2,-np.pi/2,0])
+        # self.init_joint_positions = np.array([0,-np.pi/2,0,-np.pi/2,0,0])
+        self.init_joint_positions = np.array([0,-np.pi/2,np.pi/2,-np.pi/2,-np.pi/2,0])
         self.set_joint_target_positions(self.init_joint_positions, wait=True)
         # origin_pose = self.get_pose()
         # T_origin = np.eye(4)

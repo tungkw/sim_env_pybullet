@@ -1,19 +1,17 @@
 import numpy as np
-import pybullet as p
-import pybullet_data
-import time
+import os
 
 vertices = []
 faces = []
 cells = []
 
-angle = np.pi/6
+angle = np.pi/4
 r1 = 0.01
-r2 = 0.02
-t = 0.002
+r2 = 0.015
+t = 0.001
 h = (r2-r1)/np.tan(angle)
-sample_num = 100
-sample_layer = 10
+sample_num = 20
+sample_layer = 1
 
 outer = []
 inner = []
@@ -69,54 +67,8 @@ for i in range(sample_num):
     faces.append([bl_+1, bl+1, br_+1])
     faces.append([br_+1, bl+1, br+1])
 
-# vertices = [
-#     [0,0,0],
-#     [1,0,0],
-#     [1,1,0],
-#     [0,1,0],
-#     [0,0,1],
-#     [1,0,1],
-#     [1,1,1],
-#     [0,1,1],
-# ]
-# faces = [
-#     # bot
-#     [1,4,3],
-#     [3,2,1],
-#     # front
-#     [1,2,5],
-#     [2,6,5],
-#     # back
-#     [4,8,3],
-#     [3,8,7],
-#     # left
-#     [1,5,8],
-#     [8,4,1],
-#     # right
-#     [2,3,7],
-#     [7,6,2],
-#     # top
-#     [6,7,8],
-#     [8,5,6]
-#
-#     # [1,3,2],
-#     # [1,2,4],
-#     # [3,1,4],
-#     # [2,3,4]
-# ]
-# cells = [
-#     # [0,1,2,3,4,5,6,7]
-#
-#     [0,1,2,5],
-#     [0,2,3,7],
-#     [4,7,5,0],
-#     [5,7,6,2],
-#     [0,5,2,7],
-#
-#     # [0,1,2,3]
-# ]
 
-f = open("cup.obj", 'w')
+f = open(os.path.join(os.path.dirname(__file__),"cup.obj"), 'w')
 print("o cup", file=f)
 for vertice in vertices:
     print("v %f %f %f"%(vertice[0], vertice[1], vertice[2]), file=f)
@@ -127,7 +79,7 @@ f.close()
 
 
 
-f = open("cup.vtk", 'w')
+f = open(os.path.join(os.path.dirname(__file__),"cup.vtk"), 'w')
 print("# vtk DataFile Version 2.0", file=f)
 print("cup, created by tungkw", file=f)
 print("ASCII", file=f)
@@ -145,70 +97,3 @@ for cell in cells:
     print("10", file=f)
 f.close()
 
-
-p.connect(p.GUI)
-p.setAdditionalSearchPath(pybullet_data.getDataPath())
-p.resetSimulation(p.RESET_USE_DEFORMABLE_WORLD)
-p.resetDebugVisualizerCamera(3, -420, -30, [0.3, 0.9, -2])
-p.setGravity(0,0,-10)
-
-p.loadURDF("plane.urdf", [0,0,-2])
-
-# oid = p.loadSoftBody(
-#     fileName="cup.obj",
-#     # simFileName="cup.vtk",
-#     basePosition=[0,0,-1.5],
-#     scale=1,
-#     mass=1,
-#     useNeoHookean=0,
-#     useBendingSprings=1,
-#     useMassSpring=1,
-#     springElasticStiffness=400,
-#     springDampingStiffness=.1,
-#     springDampingAllDirections = 1,
-#     useSelfCollision = 1,
-#     frictionCoeff = 1,
-#     useFaceContact=1,
-#     # repulsionStiffness=800,
-#     collisionMargin=0.006,
-# )
-# oid = p.loadSoftBody(
-#     "cup.obj",
-#     basePosition = [0,0,-1.5],
-#     scale = 1,
-#     mass = 1.,
-#     useNeoHookean = 0,
-#     useBendingSprings=1,
-#     useMassSpring=1,
-#     springElasticStiffness=1,
-#     springDampingStiffness=.5,
-#     springDampingAllDirections = 1,
-#     useSelfCollision = 1,
-#     frictionCoeff = .5,
-#     useFaceContact=1
-# )
-oid = p.loadSoftBody(
-    fileName="cup.obj",
-    simFileName="cup.vtk",
-    basePosition=[0,0,-2],
-    scale=1,
-    mass=0.1,
-    useNeoHookean=1,
-    NeoHookeanMu=1e6,
-    NeoHookeanLambda=1,
-    NeoHookeanDamping=1,
-    collisionMargin=0.006,
-    # useSelfCollision=1,
-    # frictionCoeff=0.5,
-    # repulsionStiffness=800,
-)
-# oid = p.loadURDF("cup.urdf", [0,0,-2])
-
-# vs = p.createVisualShape(shapeType=p.GEOM_MESH, fileName='cup.obj', meshScale=[10,10,10])
-# oid = p.createMultiBody(baseVisualShapeIndex=vs)
-
-# p.changeVisualShape(oid, -1, flags=p.VISUAL_SHAPE_DOUBLE_SIDED)
-
-while True:
-    p.stepSimulation()
-    # time.sleep(0.05)
