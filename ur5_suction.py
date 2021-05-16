@@ -3,21 +3,21 @@ from pybullet_utils import urdfEditor as ed
 from scipy.linalg import logm, expm
 from scipy.spatial.transform import Rotation as R
 
-from ur5 import UR5
+from .ur5 import UR5
 import pybullet as p
 import numpy as np
 import os
 
 class UR5Suction(UR5):
     def __init__(self):
-        super().__init__(urdf_file=os.path.join(os.path.dirname(__file__), "meshes/ur5/ur5_suction.urdf"))
+        super().__init__(urdf_file=os.path.join(os.path.dirname(__file__), "meshes", "ur5", "ur5_suction.urdf"))
         p.setAdditionalSearchPath(os.path.dirname(__file__))
         pose = self.get_pose()
         ori = pose[3:]
         pos = pose[:3] + R.from_quat(ori).as_matrix()[:3, 2] * 0.05
         self.cup = p.loadSoftBody(
-            fileName=os.path.join(os.path.dirname(__file__), "meshes/suction/cup.obj"),
-            simFileName=os.path.join(os.path.dirname(__file__), "meshes/suction/cup.vtk"),
+            fileName=os.path.join(os.path.dirname(__file__), "meshes", "suction", "cup.obj"),
+            simFileName=os.path.join(os.path.dirname(__file__), "meshes", "suction", "cup.vtk"),
             basePosition=pos,
             baseOrientation=ori,
             scale=1,
@@ -45,7 +45,7 @@ class UR5Suction(UR5):
         self.num_sample, self.vertices = p.getMeshData(self.cup, flags=p.MESH_DATA_SIMULATION_MESH)
         self.num_sample //= 4
         for i in range(2 * self.num_sample):
-            p.createSoftBodyAnchor(self.cup, i, self.arm, self.tool0, self.vertices[i])
+            p.createSoftBodyAnchor(self.cup, i, self.arm, self.tool0+1, self.vertices[i])
         self.grasp_anchor = []
 
     def check(self):
