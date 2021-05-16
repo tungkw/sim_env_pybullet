@@ -10,26 +10,27 @@ import os
 
 class UR5Suction(UR5):
     def __init__(self):
-        super().__init__(urdf_file="./meshes/ur5/ur5_suction.urdf")
+        super().__init__(urdf_file=os.path.join(os.path.dirname(__file__), "meshes/ur5/ur5_suction.urdf"))
         p.setAdditionalSearchPath(os.path.dirname(__file__))
         pose = self.get_pose()
         ori = pose[3:]
         pos = pose[:3] + R.from_quat(ori).as_matrix()[:3, 2] * 0.05
         self.cup = p.loadSoftBody(
-            fileName="cup.obj",
-            simFileName="cup.vtk",
+            fileName=os.path.join(os.path.dirname(__file__), "meshes/suction/cup.obj"),
+            simFileName=os.path.join(os.path.dirname(__file__), "meshes/suction/cup.vtk"),
             basePosition=pos,
             baseOrientation=ori,
             scale=1,
             mass=0.1,
+
             useBendingSprings=1,
             useMassSpring=1,
             springElasticStiffness=1e2,
             springDampingStiffness=1e-1,
-            springDampingAllDirections = 1,
+            springDampingAllDirections=1,
 
             useSelfCollision=1,
-            frictionCoeff = .5,
+            frictionCoeff=.5,
             useFaceContact=1,
             collisionMargin=0.0001,
             repulsionStiffness=800,

@@ -7,7 +7,7 @@ from scipy.spatial.transform import Rotation as R
 
 class UR5:
     def __init__(self, urdf_file="./meshes/ur5/ur5.urdf"):
-        self.arm = p.loadURDF(urdf_file)
+        self.arm = p.loadURDF(urdf_file, flags=p.URDF_USE_SELF_COLLISION)
         self.joint_names = ["shoulder_pan_joint",
                             "shoulder_lift_joint",
                             "elbow_joint",
