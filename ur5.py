@@ -26,8 +26,8 @@ class UR5:
             if str(child_name, encoding='utf-8') == 'tool0':
                 self.tool0 = idx
 
-        self.init_joint_positions = np.array([0, -np.pi/2, 0, -np.pi/2, 0, 0])
-        # self.init_joint_positions = np.array([0, -np.pi/2, np.pi/2, -np.pi/2, -np.pi/2, 0])
+        # self.init_joint_positions = np.array([0, -np.pi/2, 0, -np.pi/2, 0, 0])
+        self.init_joint_positions = np.array([0, -np.pi/2, np.pi/2, -np.pi/2, -np.pi/2, 0])
         self.set_joint_target_positions(self.init_joint_positions, wait=True)
 
     def get_joint_states(self):
@@ -39,23 +39,24 @@ class UR5:
         return np.array(positions), np.array(velocities)
 
     def set_joint_target_positions(self, positions, wait=False):
-        # p.setJointMotorControlArray(
-        #     bodyUniqueId=self.arm,
-        #     jointIndices=self.joint_idxes,
-        #     controlMode=p.POSITION_CONTROL,
-        #     targetPositions=positions,
-        #     # targetVelocities=[0,0,0,0,0,0],
-        #     # maxVelocities=[1,1,1,1,1,1],
-        # )
-        for i, idx in enumerate(self.joint_idxes):
-            p.setJointMotorControl2(
-                self.arm,
-                idx,
-                controlMode=p.POSITION_CONTROL,
-                targetPosition=positions[i],
-                targetVelocity=0,
-                maxVelocity=1,
-            )
+        p.setJointMotorControlArray(
+            bodyUniqueId=self.arm,
+            jointIndices=self.joint_idxes,
+            controlMode=p.POSITION_CONTROL,
+            targetPositions=positions,
+            # targetVelocities=[0,0,0,0,0,0],
+            # maxVelocities=[1,1,1,1,1,1],
+        )
+        # for i, idx in enumerate(self.joint_idxes):
+        #     p.setJointMotorControl2(
+        #         self.arm,
+        #         idx,
+        #         controlMode=p.POSITION_CONTROL,
+        #         targetPosition=positions[i],
+        #         targetVelocity=0,
+        #         maxVelocity=3,
+        #         # force=10,
+        #     )
         if wait:
             p.stepSimulation()
             while np.any(np.abs(self.get_joint_states()[1]) > 0.01):

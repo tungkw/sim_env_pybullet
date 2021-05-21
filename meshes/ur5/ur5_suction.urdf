@@ -597,13 +597,8 @@
       </geometry>
       <material name="verbindung"/>
     </visual>
-    <collision>
-      <geometry>
-        <cylinder length="0.05" radius="0.01"/>
-      </geometry>
-    </collision>
     <inertial>
-      <mass value="0.01"/>
+      <mass value="0.00"/>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
       <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
     </inertial>
