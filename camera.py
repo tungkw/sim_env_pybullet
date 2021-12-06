@@ -16,6 +16,14 @@ class Camera:
                                                               aspect=self.width / self.height,
                                                               nearVal=near_val,
                                                               farVal=far_val)
+        self.projection_matrix = p.computeProjectionMatrix(
+            left = -0.01,
+            right = 0.01,
+            bottom = -0.01,
+            top = 0.01,
+            nearVal = 0.01,
+            farVal = 10
+        )
         f = width / 2 / np.tan(fov / 2 / 180 * np.pi)
         self.intrinsic = np.array([
             [f, 0, width / 2],

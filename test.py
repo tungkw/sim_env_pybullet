@@ -42,6 +42,7 @@ if __name__ == '__main__':
     # plugin = RenderingPlugin(client, renderer)
     # print(plugin)
 
+    # camera = Camera(fov=0)
     camera = Realsense()
     plane = p.loadURDF(os.path.join(pybullet_data.getDataPath(), "plane.urdf"), [0,0,-2])
     pose = np.eye(4)

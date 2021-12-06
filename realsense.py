@@ -97,6 +97,8 @@ class Realsense:
 
         # project to left camera
         left = self.project(left, left_depth, self.left_cam.intrinsic, 0.029, proj_points, white_noise_idx, black_noise_idx)
+        cv2.imshow("left", left)
+        cv2.waitKey(1)
 
         # project to right camera
         right = self.project(right, right_depth, self.right_cam.intrinsic, -0.021, proj_points, white_noise_idx, black_noise_idx)
