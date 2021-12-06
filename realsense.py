@@ -33,7 +33,7 @@ class Realsense:
         I, J = np.meshgrid(np.arange(self.proj_cam.height), np.arange(self.proj_cam.width), indexing='ij')
         proj_points = np.stack([J, I, np.ones_like(I)], axis=-1)
         self.proj_points = proj_points @ np.linalg.inv(self.proj_cam.intrinsic).T
-        self.num_sample = 10000
+        self.num_sample = 100000
         self.sample_i = np.random.randint(0, self.proj_cam.height, self.num_sample)
         self.sample_j = np.random.randint(0, self.proj_cam.width, self.num_sample)
         self.ksize = 11
@@ -70,7 +70,7 @@ class Realsense:
         ret[black_noise_idx] = 0
         return ret
 
-    def get_image(self):
+    def get_image(self, noise=False):
         pos, ori = p.getBasePositionAndOrientation(self.id)
         T_b2w = np.eye(4)
         T_b2w[:3, :3] = R.from_quat(ori).as_matrix()
@@ -80,11 +80,14 @@ class Realsense:
         self.right_cam.set_pose(T_b2w @ self.T_r2b)
         self.proj_cam.set_pose(T_b2w @ self.T_p2b)
 
-        color, color_depth = self.color_cam.get_image()
+        color, color_depth, seg = self.color_cam.get_image()
+
+        if not noise:
+            return color, color_depth, seg
 
         proj_depth = self.proj_cam.get_image()[1]
-        left, left_depth = self.left_cam.get_image()
-        right, right_depth = self.right_cam.get_image()
+        left, left_depth, _ = self.left_cam.get_image()
+        right, right_depth, _ = self.right_cam.get_image()
         left = cv2.cvtColor(left, cv2.COLOR_BGR2GRAY)
         right = cv2.cvtColor(right, cv2.COLOR_BGR2GRAY)
 
@@ -121,4 +124,4 @@ class Realsense:
                 * (j >= 0) * (j < self.color_cam.width))
         depth_aligned[valid] = depth[i[valid].astype(int), j[valid].astype(int)]
 
-        return color, depth_aligned
+        return color, depth_aligned, seg
